@@ -24,7 +24,7 @@ public class WxAccountController {
 	}
 	
 	@RequestMapping(value="wxaccount/create",method=RequestMethod.GET)
-	public String wxAccountCreate_get(Model model){
+	public String wxAccountCreate_get(Model model,HttpServletRequest request){
 		
 		return "account/wxaccount/create";
 	}
