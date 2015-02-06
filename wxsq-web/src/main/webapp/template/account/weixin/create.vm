@@ -1,0 +1,120 @@
+
+
+<SCRIPT >
+$('#editRealMsgForm').submit(function() {
+    jQuery.ajax({
+    url:'editRealMsg.eri',
+    data:$('#editRealMsgForm').serialize(),
+    type:"POST",
+    beforeSend:function()
+    {  
+       //   $('#submitButton').hide();
+       // $('#editRealMsgImg').show();
+    },
+    success:function(data)
+    {
+        $('#editRealMsgImg').hide();
+        $('#modifyButton').show();
+        $('#realName').attr("disabled","true");
+        $('#tel').attr("disabled","true");
+    }
+    });
+    return false;
+});
+</SCRIPT>>
+
+<div class="panel panel-default">
+<div class="panel-heading">添加微信号</div>
+	
+  <div class="panel-body">
+	
+        <form class="form-horizontal" id="weixinCreate" action="">
+          <div class="form-group has-success has-feedback">            
+            <label class="control-label col-sm-2" for="weixinName">公众号名称</label>
+            <div class="col-sm-5">
+            	<div class="input-group">
+                <span class="input-group-addon">*</span>
+                <input type="text" class="form-control" name="weixinName" id="weixinName" aria-describedby="weixinNameStatus">
+              </div>
+              
+              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+              <span id="weixinNameStatus" class="sr-only">(success)</span>
+            </div>
+          </div>
+         <div class="form-group has-success has-feedback">
+            <label class="control-label col-sm-2" for="wxId">公众号原始ID</label>
+            <div class="col-sm-5">
+              <div class="input-group">
+                <span class="input-group-addon">*</span>
+                <input type="text" class="form-control" name="wxId" id="wxId" aria-describedby="wxIdStatus">
+              </div>
+              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+              <span id="wxIdStatus" class="sr-only">(success)</span>
+            </div>
+          </div>
+		  
+		  <div class="form-group has-success has-feedback">
+            <label class="control-label col-sm-2" for="wxId">微信号</label>
+            <div class="col-sm-5">
+              <div class="input-group">
+                <span class="input-group-addon">*</span>
+                <input type="text" class="form-control" name="weixinNum" id="weixinNum" aria-describedby="weixinNumStatus" placeholder="例如:geebay_123">
+              </div>
+              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+              <span id="weixinNumStatus" class="sr-only">(success)</span>
+            </div>
+          </div>
+		  
+		  <div class="form-group has-success has-feedback">
+            <label class="control-label col-sm-2" for="wxId">AppID</label>
+            <div class="col-sm-5">
+              <div class="input-group">
+                <span class="input-group-addon">*</span>
+                <input type="text" class="form-control" name="appId" id="appId" aria-describedby="appIdStatus" placeholder="微信官方appid,可后续填写">
+              </div>
+              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+              <span id="appIdStatus" class="sr-only">(success)</span>
+            </div>
+          </div>
+		  
+		  <div class="form-group has-success has-feedback">
+            <label class="control-label col-sm-2" for="wxId">AppSecret</label>
+            <div class="col-sm-5">
+              <div class="input-group">
+                <span class="input-group-addon">*</span>
+                <input type="text" class="form-control" name="appSecret" id="appSecret" aria-describedby="appSecretStatus" placeholder="微信官方AppSecret,可后续填写">
+              </div>
+              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+              <span id="appSecretStatus" class="sr-only">(success)</span>
+            </div>
+          </div>
+		   <div class="form-group has-success has-feedback">
+            <label class="control-label col-sm-2" for="weixinType">公众号类型</label>
+            <div class="col-sm-3">
+              <div class="input-group">
+                <span class="input-group-addon">*</span>
+                <select id="weixinType" name ="weixinType" class="form-control">
+					<option value="1" selected ="selected">服务号</option>
+                  <option value="2" >订阅号</option>
+				  <option value="3">认证服务号</option>
+				  <option value="4">认证订阅号</option>
+                  
+                  
+                 
+                </select>
+              </div>
+            
+              
+            </div>
+          </div>
+		 <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="button"  class="btn btn-success">保存</button>
+            </div>
+          </div>
+        </form>
+  </div>
+  
+  <div class="panel-footer"></div>
+</div>
+

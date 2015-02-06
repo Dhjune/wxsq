@@ -13,10 +13,16 @@ public class WxAccount {
 	@Id
 	private String  id;
 	
-	private String wxId;	
+	private String weixinName;
+	
+	private String wxId;  //微信原始ID
+	
+	private String weixinType;
+	
+	private String weixinNum;  //如june_12345
 	
 	private String wxsqUserId;
-	
+			
 	private Date createTime;
 	
 	private Date modifyTime;
@@ -30,6 +36,7 @@ public class WxAccount {
     private String location; //以后具体到实体location封装    
   
     private String token;
+    
     
     private String appId;
     
@@ -143,6 +150,30 @@ public class WxAccount {
 
 	public void setWxsqUserId(String wxsqUserId) {
 		this.wxsqUserId = wxsqUserId;
+	}
+
+	public String getWeixinType() {
+		return weixinType;
+	}
+
+	public void setWeixinType(String weixinType) {
+		this.weixinType = weixinType;
+	}
+
+	public String getWeixinName() {
+		return weixinName;
+	}
+
+	public void setWeixinName(String weixinName) {
+		this.weixinName = weixinName;
+	}
+
+	public String getWeixinNum() {
+		return weixinNum;
+	}
+
+	public void setWeixinNum(String weixinNum) {
+		this.weixinNum = weixinNum;
 	}
 
 	class ReplyProvider{
