@@ -32,6 +32,7 @@ public class WxAccountController {
 	@RequestMapping(value="wxaccount/create",method=RequestMethod.POST)
 	public String wxAccountCreate_post(HttpServletRequest request){
 		
+		
 		return "account/wxaccount/create";
 	}
 	
