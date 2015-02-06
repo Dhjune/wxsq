@@ -24,12 +24,13 @@ public class WxAccountController {
 	}
 	
 	@RequestMapping(value="wxaccount/create",method=RequestMethod.GET)
-	public String wxAccountCreate_get(){
+	public String wxAccountCreate_get(Model model){
 		return "account/wxaccount/create";
 	}
 	
 	@RequestMapping(value="wxaccount/create",method=RequestMethod.POST)
 	public String wxAccountCreate_post(){
+		
 		return "account/wxaccount/create";
 	}
 	
