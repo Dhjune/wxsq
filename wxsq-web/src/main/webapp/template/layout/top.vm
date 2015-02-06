@@ -1,0 +1,87 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">社区首页</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-left">
+			<li><a href="#">当前微信:</a></li>
+            <li><a href="#">我的公众号</a></li>
+            <li><a href="#">帮助</a></li>
+            <li><a href="#">彩码设计 </a></li>
+			
+			#if($!{wxsqUser.level}== 0)
+    			<li role="presentation" class="dropdown open">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="true">
+    					开发项 <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#">服务管理</a></li>
+                      <li><a href="#">添加服务</a></li>
+                    </ul> 
+                  </li>	
+		   #end
+           </ul>
+          <ul class="nav navbar-nav navbar-right" id="admin_view">
+				#if($!{wxsqUser.userName})
+					<li><a href="#"> 				
+					<span class="glyphicon glyphicon-user" aria-hidden="true">$!{wxsqUser.userName}</span>			
+				   </a>
+					</li>
+					<li><a href='#' onclick="admin_logout('$!{wxsqUser.id}')">退出</a>
+			   #else
+					<li><a href="#" data-toggle="modal" data-target="#AdminModal">登录</a></li>
+					<li><a href="#" >注册</a></li>
+			   #end
+			   
+		  </ul>
+        </div>
+      </div>
+    </nav>
+	
+	 <div class="container marketing">
+		<div class="pull-right" style="width:160p; position: absolute;right: 80px;top: 80px;"  id="alert_view">
+		</div>
+     </div>
+       <div class="modal fade" id="AdminModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Admin登录</h4>
+              </div>
+              <div class="modal-body form-horizontal">
+    			
+    			<div class="form-group">
+                    <label class="col-sm-2 control-label"><span class="glyphicon glyphicon-user"></span></label>
+                    <div class="col-sm-6">
+                          <input type="text" class="form-control" name="userName" id="userName" placeholder="userName">
+                    </div>
+                  </div>
+    			
+                
+    			
+    			<div class="form-group" >
+                     <label for="inputPassword" class="col-sm-2 control-label"><span class="glyphicon glyphicon-lock"></span></label>
+                    <div class="col-sm-6">
+                      <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                    </div>
+                </div>
+    					                        
+          		 
+    				
+    				
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button"  class="btn btn-primary" data-dismiss="modal" onclick="admin_login()">登录</button>
+              </div>
+            </div>
+          </div>
+        </div>

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.geebay</groupId>
+    <artifactId>wxsq</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>com.geebay</groupId>
+  <artifactId>wxsq-web</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>wxsq-web Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+  
+  	 <dependency>
+           <groupId>com.geebay.wxsq</groupId>
+            <artifactId>wxsq-user</artifactId>
+           <version>${project.version}</version>
+     </dependency>
+     
+  	<dependency>
+           <groupId>com.geebay.wxsq</groupId>
+            <artifactId>wxsq-wxroot</artifactId>
+           <version>${project.version}</version>
+     </dependency>
+     <dependency>
+           <groupId>com.geebay.wxsq</groupId>
+            <artifactId>wxsq-account</artifactId>
+           <version>${project.version}</version>
+     </dependency>
+     
+      <dependency>
+          <groupId>org.apache.velocity</groupId>
+          <artifactId>velocity</artifactId>
+      </dependency>
+     
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      
+    </dependency>
+  </dependencies>
+  <build>
+    <finalName>wxsq-web</finalName>
+  </build>
+</project>
