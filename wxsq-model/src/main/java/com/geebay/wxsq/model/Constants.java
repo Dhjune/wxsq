@@ -1,6 +1,7 @@
 package com.geebay.wxsq.model;
 
 public class Constants {
+	//for git test
 	//微信自定义的消息类型
 		public static final String WEIXIN_MESSAGE_TYPE_TEXT = "text";
 	    public static final String WEIXIN_MESSAGE_TYPE_IMAGE = "image";
