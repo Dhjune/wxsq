@@ -1,6 +1,5 @@
 
 #set($pageCount = $Integer.parseInt( $!{context.pageCount}))
-
 #if( $!{context.pageCount} >= 1)	
     <div class=" pull-right">
         <ul class="pagination pagination-sm">
@@ -43,5 +42,19 @@
         <ul class="pagination">
             <li><a >共$!{context.total}条记录</a></li>
         </ul>
+    </div>
+	<div class=" pull-right">		
+		<form class="form-inline">
+          <div class="form-group">
+            <label class="sr-only" for="pageIndex">Amount (in dollars)</label>
+			
+            <div class="input-group col-sm-2">
+              <div class="input-group-addon">第</div>
+              <input type="text" class="form-control" name="pageIndex" id="pageIndex" >
+              <div class="input-group-addon">页</div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">GO</button>
+		</form>		    
     </div>
 #end
