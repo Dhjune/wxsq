@@ -1,3 +1,59 @@
+
+
+function  Ws(){
+	this.alive =  true;
+	if(window.XMLHttpRequest){
+		this.req = new XMLHttpRequest();
+	}else{
+		this.req = new ActiveXObject("Msxml2.XMLHTTP");  //ie
+	}
+}
+
+var $Ws =  new Ws();
+var AjaxArr =  new Array();
+Ws.prototype.ajax = function (url,type,data,content_type){
+	
+	this.req.open(type,url,true);
+	this.req.setRequestHeader("Content-Type", content_type);
+	this.req.send($.toJSON(data));
+	this.req.onreadystatechange=function(){
+		if (req.readyState==4 && req.status==200){			
+			return eval("("+req.responseText+")");
+		}
+	};
+	
+}	
+
+Ws.prototype.get = function(target){
+	
+	var $this = $(target),_clickTab = $this.attr('link'); 
+	$.get(_clickTab,function (data ,status){
+		$("#container_iframe").html(data); 
+	});
+}
+
+Ws.prototype.expressval = function (target){
+	
+	var $target =  $(target);
+	var field_name = $target.attr("name");
+	var field_id = $target.attr("id");	
+	var field_value = $target.attr("value");	
+	for(var i = 0;i<AjaxArr.length;i++){		
+		var  obj = AjaxArr[i];	
+		if(field_name == obj.name ){
+			obj[field_id] = field_id;
+			obj[field_value] =  field_value;
+			return ;
+		}			
+	}	
+	var  obj = {};
+	obj[field_name]= field_name;
+	obj[field_id]= field_id;
+	obj[field_value]= field_value;
+	AjaxArr.push(obj);
+	
+} 
+  
 function admin_login(){
 		
 		var adata={};

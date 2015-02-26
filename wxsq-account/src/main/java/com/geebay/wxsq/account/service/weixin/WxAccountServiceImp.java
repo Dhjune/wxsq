@@ -29,15 +29,30 @@ public class WxAccountServiceImp implements WxAccountService{
 	}
 
 
-	public List list(Map map, String wxsqUserId, String lastKey) {
+	public List list(String wxsqUserId, String lastKey) {
 		List<WxAccount> list = null;
 
-		list = wxAccountDaoImp.list(map,wxsqUserId,lastKey);
+		list = wxAccountDaoImp.list(wxsqUserId,lastKey);
 		
 		return  list;
 		
 		
 	}
+
+
+	public boolean save(com.geebay.wxsq.model.account.base.WxAccount wxaccount) {
+		try {
+			wxAccountDaoImp.save(wxaccount);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+			
+		}
+		return true;
+				
+	}
+	
+	
 	
 
 }

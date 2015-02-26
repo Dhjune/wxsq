@@ -3,6 +3,7 @@ package com.geebay.wxsq.model.account.base;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection=WxAccount.COLLECTION)
@@ -14,6 +15,7 @@ public class WxAccount {
 	private String  id;
 	
 	private String weixinName;
+	
 	
 	private String wxId;  //微信原始ID
 	

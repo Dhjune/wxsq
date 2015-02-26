@@ -43,7 +43,8 @@ public class WxsqUserController {
 		wxsqUser.setLevel(2);
 		wxsqUser.setStatus(1);		
 		if(wxsqUserServiceImp.register(wxsqUser)){
-			session.setAttribute("wxsqUser", wxsqUser);				
+			session.setAttribute("wxsqUser", wxsqUser);
+			session.setAttribute("wxsqUserId", wxsqUser.getId());
 			return "redirect:/index";
 		}else{
 			model.addAttribute("wxsqUser", wxsqUser);

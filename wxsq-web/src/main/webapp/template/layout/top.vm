@@ -12,7 +12,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-left">
 			<li><a href="#">当前微信:</a></li>
-            <li><a href="#">我的公众号</a></li>
+            <li><a asynchronize="true" href="#" link="./weixin/list" >我的公众号</a></li>
             <li><a href="#">帮助</a></li>
             <li><a href="#">彩码设计 </a></li>
 			

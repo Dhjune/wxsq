@@ -18,8 +18,10 @@ public class WxAccountDaoImp implements WxAccountDao{
 	@Autowired
 	private MongoOperations operations;
 	
-	public void save(WxAccount wxaccout){
-		operations.save(wxaccout);
+	public void save(WxAccount wxaccount) throws Exception{
+		
+		operations.save(wxaccount);
+		
 	}
 
 	public List<WxAccount> list(String wxsqUserId) {
@@ -27,7 +29,7 @@ public class WxAccountDaoImp implements WxAccountDao{
 		return null;
 	}
 
-	public List<WxAccount> list(Map map, String wxsqUserId, String lastKey) {
+	public List<WxAccount> list(String wxsqUserId, String lastKey) {
 		
 		Query query  = new Query();
 		Direction direction=true?Direction.ASC:Direction.DESC;

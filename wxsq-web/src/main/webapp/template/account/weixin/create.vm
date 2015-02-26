@@ -1,27 +1,19 @@
 
 
 <SCRIPT >
-$('#editRealMsgForm').submit(function() {
+$('#weixinCreate').submit(function() {
     jQuery.ajax({
-    url:'editRealMsg.eri',
-    data:$('#editRealMsgForm').serialize(),
-    type:"POST",
-    beforeSend:function()
-    {  
-       //   $('#submitButton').hide();
-       // $('#editRealMsgImg').show();
-    },
+    url:'/wxsq/account/weixin/create',
+    data:$('#weixinCreate').serialize(),
+    type:"POST",  
     success:function(data)
     {
-        $('#editRealMsgImg').hide();
-        $('#modifyButton').show();
-        $('#realName').attr("disabled","true");
-        $('#tel').attr("disabled","true");
+        　		$("#container_iframe").html(data); 
     }
     });
     return false;
 });
-</SCRIPT>>
+</SCRIPT>
 
 <div class="panel panel-default">
 <div class="panel-heading">添加微信号</div>
@@ -109,7 +101,7 @@ $('#editRealMsgForm').submit(function() {
           </div>
 		 <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-              <button type="button"  class="btn btn-success">保存</button>
+              <button type="submit"  class="btn btn-success">保存</button>
             </div>
           </div>
         </form>

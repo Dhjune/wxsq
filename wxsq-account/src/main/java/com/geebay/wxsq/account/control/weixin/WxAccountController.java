@@ -24,16 +24,27 @@ public class WxAccountController {
 	@Autowired
 	private WxAccountServiceImp wxAccountServiceImp;
 	
-	@RequestMapping(value={"weixin/list"},method=RequestMethod.POST)
-	public String WxAccount(@RequestBody Map map,HttpServletRequest request,Model model){
+	@RequestMapping(value={"weixin/list"},method=RequestMethod.GET)
+	public String getWxAccountListByGet(HttpServletRequest request,Model model){
 		
-		String wxsqUserId =  request.getParameter("wxsqUserId");
-		String lastKey = request.getParameter("lastKey");
-		wxAccountServiceImp.list(map,wxsqUserId,lastKey);
-				
+		String wxsqUserId = "";
+		String lastKey = "";
+		wxAccountServiceImp.list(wxsqUserId,lastKey);
 		
 		return "account/weixin/list";	
 	}
+	
+	@RequestMapping(value={"weixin/list"},method=RequestMethod.POST)
+	public String getWxAccountListByPost(HttpServletRequest request,Model model){
+		
+		String wxsqUserId = "";
+		String lastKey = "";
+		wxAccountServiceImp.list(wxsqUserId,lastKey);
+		
+		return "account/weixin/list";	
+	}
+	
+	
 	
 	@RequestMapping(value="weixin/create",method=RequestMethod.GET)
 	@FormToken(SaveToken=true)
@@ -48,11 +59,15 @@ public class WxAccountController {
 	@RequestMapping(value="weixin/create",method=RequestMethod.POST)
 	@FormToken(RemoveToken=true)
 	@Permission()
-	public String wxAccountCreate_post(HttpServletRequest request){
-		 
+	public String wxAccountCreate_post(HttpServletRequest request,com.geebay.wxsq.model.account.base.WxAccount wxaccount){
 		
-		
-		return "account/weixin/create";
+		boolean  success = wxAccountServiceImp.save(wxaccount); 
+		if(success){
+			return  "redirect:/account/weixin/list";
+		}else{
+				
+			return "account/weixin/create";
+		}
 		
 	}
 	

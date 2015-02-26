@@ -21,7 +21,7 @@
                 　　$('a[asynchronize="true"]').click(function() {
                   　
                  　　　　var   $this = $(this),
-                 　　　　_clickTab = $this.attr('link'); 
+                 　　　     　_clickTab = $this.attr('link'); 
 				 /*
 		  if($a!=null){
 		  	$a.removeClass("isactive");
@@ -35,6 +35,9 @@
                  　　　　});
                 　　});
 	});
+	
+	
+	
     </script>
   
 	
