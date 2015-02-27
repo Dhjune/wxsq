@@ -37,6 +37,7 @@ import javax.xml.transform.stream.StreamSource;
 
 
 
+
 import org.codehaus.jackson.JsonProcessingException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -86,7 +87,12 @@ public class WeixinTest {
 		WxAccount wxaccount = new WxAccount();
 		wxaccount.setAppId("wx5be9450141d63b01");
 		wxaccount.setCreateTime(new Date());
-		accountDaoImp.save(wxaccount);
+		try {
+			accountDaoImp.save(wxaccount);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
   
     @Test  

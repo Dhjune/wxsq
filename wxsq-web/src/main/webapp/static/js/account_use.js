@@ -11,6 +11,8 @@ function  Ws(){
 
 var $Ws =  new Ws();
 var AjaxArr =  new Array();
+
+
 Ws.prototype.ajax = function (url,type,data,content_type){
 	
 	this.req.open(type,url,true);
@@ -23,7 +25,7 @@ Ws.prototype.ajax = function (url,type,data,content_type){
 	};
 	
 }	
-
+	
 Ws.prototype.get = function(target){
 	
 	var $this = $(target),_clickTab = $this.attr('link'); 
@@ -32,24 +34,78 @@ Ws.prototype.get = function(target){
 	});
 }
 
+Ws.prototype.post = function(target){
+	
+	var $this = $(target),_clickTab = $this.attr('link'); 
+	$.post(_clickTab,function (data ,status){
+		$("#container_iframe").html(data); 
+	});
+}
+
+Ws.prototype.navpost = function(target){
+	
+	var $this = $(target),_clickTab = $this.attr('link'); 
+	$.ajax({  
+        url : _clickTab,  
+        type : 'POST',  
+        data : $.toJSON(AjaxArr),  
+         
+        contentType : 'application/json',  
+        success : function(data, status, xhr) {  
+        	
+        	$("#container_iframe").html(data); 
+        }
+	});
+}
+
 Ws.prototype.expressval = function (target){
 	
 	var $target =  $(target);
 	var field_name = $target.attr("name");
-	var field_id = $target.attr("id");	
-	var field_value = $target.attr("value");	
+	var operation_id = $target.attr("operation_id");	
+	var field_value = $target.val();	
+	var operation = $target.attr("operation");
+	var operation_opId = $target.attr("operation_opId");
+	
 	for(var i = 0;i<AjaxArr.length;i++){		
 		var  obj = AjaxArr[i];	
-		if(field_name == obj.name ){
-			obj[field_id] = field_id;
-			obj[field_value] =  field_value;
+		if(field_name == obj.name){
+			
+			obj[operation_opId] = operation;	
+			obj[operation_id] =  field_value;
 			return ;
 		}			
 	}	
 	var  obj = {};
-	obj[field_name]= field_name;
-	obj[field_id]= field_id;
-	obj[field_value]= field_value;
+	obj["name"]= field_name;
+	
+	obj[operation_opId] = operation;
+	obj[operation_id]= field_value;
+	AjaxArr.push(obj);
+	
+} 
+
+Ws.prototype.selectval = function (target){
+	
+	var $target =  $(target);
+	var field_name = $target.attr("name");
+	var operation_id = $target.attr("operation_id");
+	var operation = $target.attr("operation");
+	var operation_opId = $target.attr("operation_opId");
+	var field_value =  $target.val();	
+	for(var i = 0;i<AjaxArr.length;i++){		
+		var  obj = AjaxArr[i];	
+		if(field_name == obj.name){
+			obj[operation_opId] = operation;
+			obj[operation_id] =  field_value;
+			return ;
+		}			
+	}	
+	var  obj = {};
+	obj["name"]= field_name;
+	
+	obj[operation_opId] = operation;
+	obj[operation_id]= field_value;
 	AjaxArr.push(obj);
 	
 } 

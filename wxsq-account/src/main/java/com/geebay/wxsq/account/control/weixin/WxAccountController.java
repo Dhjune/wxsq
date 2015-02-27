@@ -1,5 +1,6 @@
 package com.geebay.wxsq.account.control.weixin;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.geebay.wxsq.account.inteceptor.Permission;
 import com.geebay.wxsq.account.service.weixin.WxAccountServiceImp;
 import com.geebay.wxsq.common.intecepter.FormToken;
+import com.geebay.wxsq.common.mongo.Expression;
+import com.geebay.wxsq.common.mongo.MongoAbstract;
+import com.geebay.wxsq.common.mongo.MongoResolver;
+import com.geebay.wxsq.model.account.base.WxAccount;
 
 @Controller
 @RequestMapping("/account")
@@ -23,6 +28,9 @@ public class WxAccountController {
 
 	@Autowired
 	private WxAccountServiceImp wxAccountServiceImp;
+	
+	@Autowired
+	private  MongoResolver mongoResolver;
 	
 	@RequestMapping(value={"weixin/list"},method=RequestMethod.GET)
 	public String getWxAccountListByGet(HttpServletRequest request,Model model){
@@ -37,9 +45,9 @@ public class WxAccountController {
 	@RequestMapping(value={"weixin/list"},method=RequestMethod.POST)
 	public String getWxAccountListByPost(HttpServletRequest request,Model model){
 		
-		String wxsqUserId = "";
-		String lastKey = "";
-		wxAccountServiceImp.list(wxsqUserId,lastKey);
+		WxAccount wxaccount =  new  WxAccount();		
+		List<Expression> list =  null;
+		List<WxAccount> result =  mongoResolver.list(list, wxaccount);
 		
 		return "account/weixin/list";	
 	}

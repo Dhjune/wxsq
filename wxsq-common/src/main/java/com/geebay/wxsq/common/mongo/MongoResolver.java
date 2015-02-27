@@ -20,11 +20,19 @@ public class MongoResolver extends MongoAbstract{
 	@Autowired
 	private MongoOperations operations;
 	
-	public  <T>  List<T>  list(List<Expression> list , T target) throws NoSuchFieldException, SecurityException{
+	public  <T>  List<T>  list(List<Expression> list , T target) {
 		Query query = new Query();
 		
 		 for(Iterator<Expression> i = list.iterator(); i.hasNext();)    { 
-			 match(i.next(),query,target);
+			try {
+				match(i.next(),query,target);
+			} catch (NoSuchFieldException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	      } 
 		 		
 		 List<T> result =  (List<T>) operations.find(query, target.getClass());
