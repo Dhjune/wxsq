@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="wxsq-web">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/test"/>
+        <dependent-module archiveName="wxsq-user-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wxsq-user/wxsq-user">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wxsq-wxroot-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wxsq-wxroot/wxsq-wxroot">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wxsq-model-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wxsq-model/wxsq-model">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wxsq-common-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wxsq-common/wxsq-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wxsq-config-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wxsq-config/wxsq-config">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wxsq-account-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wxsq-account/wxsq-account">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/wxsq-web/target/classes"/>
+        <property name="context-root" value="wxsq"/>
+    </wb-module>
+</project-modules>

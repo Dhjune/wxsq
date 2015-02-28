@@ -1,3 +1,116 @@
+
+
+function  Ws(){
+	this.alive =  true;
+	if(window.XMLHttpRequest){
+		this.req = new XMLHttpRequest();
+	}else{
+		this.req = new ActiveXObject("Msxml2.XMLHTTP");  //ie
+	}
+}
+
+var $Ws =  new Ws();
+var AjaxArr =  new Array();
+
+
+Ws.prototype.ajax = function (url,type,data,content_type){
+	
+	this.req.open(type,url,true);
+	this.req.setRequestHeader("Content-Type", content_type);
+	this.req.send($.toJSON(data));
+	this.req.onreadystatechange=function(){
+		if (req.readyState==4 && req.status==200){			
+			return eval("("+req.responseText+")");
+		}
+	};
+	
+}	
+	
+Ws.prototype.get = function(target){
+	
+	var $this = $(target),_clickTab = $this.attr('link'); 
+	$.get(_clickTab,function (data ,status){
+		$("#container_iframe").html(data); 
+	});
+}
+
+Ws.prototype.post = function(target){
+	
+	var $this = $(target),_clickTab = $this.attr('link'); 
+	$.post(_clickTab,function (data ,status){
+		$("#container_iframe").html(data); 
+	});
+}
+
+Ws.prototype.navpost = function(target){
+	
+	var $this = $(target),_clickTab = $this.attr('link'); 
+	console.log($.toJSON(AjaxArr));
+	$.ajax({  
+        url : _clickTab,  
+        type : 'POST',  
+        data : $.toJSON(AjaxArr),  
+         
+        contentType : 'application/json',  
+        success : function(data, status, xhr) {  
+        	
+        	$("#container_iframe").html(data); 
+        }
+	});
+}
+
+Ws.prototype.expressval = function (target){
+	
+	var $target =  $(target);
+	var field_name = $target.attr("name");
+	var operation_id = $target.attr("operation_id");	
+	var field_value = $target.val();	
+	var operation = $target.attr("operation");
+	var operation_opId = $target.attr("operation_opId");
+	
+	for(var i = 0;i<AjaxArr.length;i++){		
+		var  obj = AjaxArr[i];	
+		if(field_name == obj.name){
+			
+			obj[operation_opId] = operation;	
+			obj[operation_id] =  field_value;
+			return ;
+		}			
+	}	
+	var  obj = {};
+	obj["name"]= field_name;
+	
+	obj[operation_opId] = operation;
+	obj[operation_id]= field_value;
+	AjaxArr.push(obj);
+	
+} 
+
+Ws.prototype.selectval = function (target){
+	
+	var $target =  $(target);
+	var field_name = $target.attr("name");
+	var operation_id = $target.attr("operation_id");
+	var operation = $target.attr("operation");
+	var operation_opId = $target.attr("operation_opId");
+	var field_value =  $target.val();	
+	for(var i = 0;i<AjaxArr.length;i++){		
+		var  obj = AjaxArr[i];	
+		if(field_name == obj.name){
+			obj[operation_opId] = operation;
+			obj[operation_id] =  field_value;
+			return ;
+		}			
+	}	
+	var  obj = {};
+	obj["name"]= field_name;
+	
+	obj[operation_opId] = operation;
+	obj[operation_id]= field_value;
+	AjaxArr.push(obj);
+	
+} 
+  
 function admin_login(){
 		
 		var adata={};
@@ -14,7 +127,7 @@ function admin_login(){
 	        	var html = "";
 	        	var alert="";
  				if(data!=null && data.success){
- 					html+="<li><a onclick=\"openAccount('"+data.wxsqUser.id+"')\" href='/wxsq/account/index?wxsqUserId="+data.wxsqUser.id+"'> <span class='glyphicon glyphicon-user' aria-hidden='true'>"+data.wxsqUser.userName+"</span></a></li>";
+ 					html+="<li><a onclick=\"openAccount('"+data.wxsqUser.id+"')\" href='/account/index?wxsqUserId="+data.wxsqUser.id+"'> <span class='glyphicon glyphicon-user' aria-hidden='true'>"+data.wxsqUser.userName+"</span></a></li>";
  					
  					html +="<li><a href='#' onclick=\"admin_logout('"+data.wxsqUser.id+"')\">退出</a></li>"	
  				  
@@ -97,7 +210,7 @@ function admin_login(){
 	        	var alert="";
  				if(data!=null && data.success){
  					
- 					window.location.href = "/wxsq/account/index?wxsqUserId="+admin_id;
+ 					window.location.href = "/account/index?wxsqUserId="+admin_id;
 				    
 					
  				}else{

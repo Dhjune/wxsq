@@ -1,7 +1,8 @@
-<script src="/wxsq/static/jquery/jquery-1.10.1.min.js"></script>
-<script src="/wxsq/static/jquery/jquery.json-2.4.js"></script>
-<script src="/wxsq/static/bootstrap/js/bootstrap.min.js"></script>
-<link href="/wxsq/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="/static/jquery/jquery-1.10.1.min.js"></script>
+<script src="/static/jquery/jquery.json-2.4.js"></script>
+<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/js/account_use.js"></script>
+<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <<script type="text/javascript">
 <!--
 
@@ -14,7 +15,7 @@ function admin_login(){
 		adata['password'] = $('#password').val();
 		console.log($('#userName').val());
 		$.ajax({  
-	        url : "/wxsq/user/login",  
+	        url : "/user/login",  
 	        type : 'POST',  
 	        data : $.toJSON(adata),  
 	        dataType : 'json',  
@@ -24,7 +25,7 @@ function admin_login(){
 	        	var html = "";
 	        	var alert="";
  				if(data!=null && data.success){
- 					window.location.href="/wxsq/account/index";
+ 					window.location.href="/account/index";
 					
  				}else{
  					
@@ -47,7 +48,7 @@ function admin_login(){
 	function admin_logout(admin_id){
 		adata={"wxsqUserId":admin_id};
 		$.ajax({  
-	        url : "/wxsq/user/logout",  
+	        url : "/user/logout",  
 	        type : 'POST',  
 	        data : $.toJSON(adata),  
 	        dataType : 'json',  
