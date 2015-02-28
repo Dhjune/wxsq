@@ -45,6 +45,7 @@ Ws.prototype.post = function(target){
 Ws.prototype.navpost = function(target){
 	
 	var $this = $(target),_clickTab = $this.attr('link'); 
+	console.log($.toJSON(AjaxArr));
 	$.ajax({  
         url : _clickTab,  
         type : 'POST',  
@@ -126,7 +127,7 @@ function admin_login(){
 	        	var html = "";
 	        	var alert="";
  				if(data!=null && data.success){
- 					html+="<li><a onclick=\"openAccount('"+data.wxsqUser.id+"')\" href='/wxsq/account/index?wxsqUserId="+data.wxsqUser.id+"'> <span class='glyphicon glyphicon-user' aria-hidden='true'>"+data.wxsqUser.userName+"</span></a></li>";
+ 					html+="<li><a onclick=\"openAccount('"+data.wxsqUser.id+"')\" href='/account/index?wxsqUserId="+data.wxsqUser.id+"'> <span class='glyphicon glyphicon-user' aria-hidden='true'>"+data.wxsqUser.userName+"</span></a></li>";
  					
  					html +="<li><a href='#' onclick=\"admin_logout('"+data.wxsqUser.id+"')\">退出</a></li>"	
  				  
@@ -209,7 +210,7 @@ function admin_login(){
 	        	var alert="";
  				if(data!=null && data.success){
  					
- 					window.location.href = "/wxsq/account/index?wxsqUserId="+admin_id;
+ 					window.location.href = "/account/index?wxsqUserId="+admin_id;
 				    
 					
  				}else{

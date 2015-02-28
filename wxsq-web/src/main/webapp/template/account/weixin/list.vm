@@ -48,7 +48,19 @@ $('#weixinCreate').submit(function() {
       </div>
            
   </div>
-  
+            	<table class="table table-bordered">
+            	#foreach($item in $!{context.list})
+            		 <tr>
+            			<td>$!{item.id}</td>
+            			<td>$!{item.wxId}</td>
+            			<td>$!{item.createTime}</td>
+                     </tr>
+            	#end
+             
+            </table>
+            <div class=" pull-right" id="pageNav">
+					#parse("/layout/pagenav.vm")
+               </div>
   <div class="panel-footer"></div>
 </div>
 

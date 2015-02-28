@@ -1,8 +1,10 @@
 package com.geebay.wxsq.common.mongo;
 
+import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -13,31 +15,51 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 
-
 @Service
-public class MongoResolver extends MongoAbstract{
+public class MongoResolver {
 	
 	@Autowired
 	private MongoOperations operations;
 	
-	public  <T>  List<T>  list(List<Expression> list , T target) {
+	public  <T>  List<T>  list(List<Expression> list , T target,int pageIndex,int pageSize,String url) throws NoSuchFieldException, SecurityException{
 		Query query = new Query();
-		
-		 for(Iterator<Expression> i = list.iterator(); i.hasNext();)    { 
-			try {
-				match(i.next(),query,target);
-			} catch (NoSuchFieldException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	      } 
-		 		
-		 List<T> result =  (List<T>) operations.find(query, target.getClass());
+		List<T> result = null;
+		if(list!=null &&list.size()>0){
+			for(Iterator<Expression> i = list.iterator(); i.hasNext();)    { 
+				 match(i.next(),query,target);
+		    } 
+		}
 		 
+		Direction direction = true?Direction.ASC:Direction.DESC;
+		query.with(new Sort(direction,"createTime")).skip((pageIndex-1)*pageSize).limit(pageSize);		 
+		result =  (List<T>) operations.find(query, target.getClass());
+		 		 
 		return result;
+		
+	}
+	
+	public  <T>  PageNav<T>  PageNavlist(List<Expression> list , T target,boolean isTotal,int pageIndex,int pageSize,String url) throws NoSuchFieldException, SecurityException{
+		PageNav<T> context = null;
+		
+		Query query = new Query();
+		if(list!=null &&list.size()>0){
+			for(Iterator<Expression> i = list.iterator(); i.hasNext();)    { 
+				 match(i.next(),query,target);
+		    } 
+		}
+		
+		 
+		long total =  operations.count(query, target.getClass());
+		
+		Direction direction = true?Direction.ASC:Direction.DESC;
+		
+		query.with(new Sort(direction,"createTime")).skip((pageIndex-1)*pageSize).limit(pageSize);	
+		
+		List<T> result =  (List<T>) operations.find(query, target.getClass());
+		
+		context = new PageNav<T>(result, total, pageSize, pageIndex, url);
+		
+		return context;
 		
 	}
 

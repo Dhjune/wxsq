@@ -15,6 +15,7 @@
 
     #include("/layout/header.html") 
 	<script >
+	/*
 	var $a = null;
 	$(function(){
 	
@@ -37,7 +38,7 @@
 	});
 	
 	
-	
+	*/
     </script>
   
 	

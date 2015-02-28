@@ -1,6 +1,9 @@
 package com.geebay.wxsq.model;
 
 public class Constants {
+	
+		public static final int ACCOUNT_DEFAULT_PAGE_SIZE = 12;	
+	
 	//for git test
 	//微信自定义的消息类型
 		public static final String WEIXIN_MESSAGE_TYPE_TEXT = "text";
