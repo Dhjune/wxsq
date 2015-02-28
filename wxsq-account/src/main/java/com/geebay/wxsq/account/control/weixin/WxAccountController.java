@@ -64,12 +64,13 @@ public class WxAccountController {
 		return "account/weixin/list";	
 	}
 	
-<<<<<<< HEAD
+
 	@RequestMapping(value="wxaccount/create",method=RequestMethod.GET)
 	public String wxAccountCreate_get(){
 		
 		return "account/wxaccount/create";
-=======
+	}
+
 	@RequestMapping(value={"weixin/list"},method=RequestMethod.POST)
 	public String getWxAccountListByPost(@RequestBody Expression[]  expressions,HttpServletRequest request,Model model){
 		
@@ -119,7 +120,7 @@ public class WxAccountController {
 		
 		return "account/weixin/create";
 		
->>>>>>> target
+
 	}
 	
 	@RequestMapping(value="weixin/create",method=RequestMethod.POST)
