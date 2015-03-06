@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.geebay.wxsq.account.service.WxsqUserServiceImp;
+import com.geebay.wxsq.account.service.weixin.WxAccountServiceImp;
+import com.geebay.wxsq.model.account.base.WxAccount;
 import com.geebay.wxsq.model.account.base.WxsqUser;
 
 @Controller
@@ -27,6 +29,9 @@ public class WxsqUserController {
 	
 	@Autowired
 	private WxsqUserServiceImp wxsqUserServiceImp;
+	
+	@Autowired
+	private WxAccountServiceImp wxAccountServiceImp;
 	
 	@RequestMapping(value="user/register",method=RequestMethod.GET)
 	public String register_get(){
@@ -67,8 +72,12 @@ public class WxsqUserController {
 		Map rmap = wxsqUserServiceImp.login(userName,password);
 	
 		if((Boolean) rmap.get("success")){
-		
-			session.setAttribute("wxsqUser", (WxsqUser)rmap.get("wxsqUser"));
+			
+			WxsqUser user =  (WxsqUser)rmap.get("wxsqUser");
+			WxAccount wxAccount = wxAccountServiceImp.findOneByWxsqUserId(user.getId());
+			System.out.println(wxAccount);
+			session.setAttribute("wxsqUser", user);
+			session.setAttribute("wxAccount", wxAccount);
 		
 		}
 		return  rmap;

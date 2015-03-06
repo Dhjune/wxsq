@@ -3,7 +3,7 @@
 <SCRIPT >
 $('#weixinCreate').submit(function() {
     jQuery.ajax({
-    url:'/wxsq/account/weixin/create',
+    url:'/account/weixin/create',
     data:$('#weixinCreate').serialize(),
     type:"POST",  
     success:function(data)
@@ -26,7 +26,7 @@ $('#weixinCreate').submit(function() {
             <div class="col-sm-5">
             	<div class="input-group">
                 <span class="input-group-addon">*</span>
-                <input type="text" class="form-control" name="weixinName" id="weixinName" aria-describedby="weixinNameStatus">
+                <input type="text" class="form-control" name="weixinName" value="$!{wxaccount.weixinName}" id="weixinName" aria-describedby="weixinNameStatus">
               </div>
               
               <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
@@ -38,7 +38,7 @@ $('#weixinCreate').submit(function() {
             <div class="col-sm-5">
               <div class="input-group">
                 <span class="input-group-addon">*</span>
-                <input type="text" class="form-control" name="wxId" id="wxId" aria-describedby="wxIdStatus">
+                <input type="text" class="form-control" value="$!{wxaccount.wxId}" name="wxId" id="wxId" aria-describedby="wxIdStatus">
               </div>
               <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
               <span id="wxIdStatus" class="sr-only">(success)</span>
@@ -50,7 +50,7 @@ $('#weixinCreate').submit(function() {
             <div class="col-sm-5">
               <div class="input-group">
                 <span class="input-group-addon">*</span>
-                <input type="text" class="form-control" name="weixinNum" id="weixinNum" aria-describedby="weixinNumStatus" placeholder="例如:geebay_123">
+                <input type="text" class="form-control" value="$!{wxaccount.weixinNum}" name="weixinNum" id="weixinNum" aria-describedby="weixinNumStatus" placeholder="例如:geebay_123">
               </div>
               <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
               <span id="weixinNumStatus" class="sr-only">(success)</span>
@@ -62,7 +62,7 @@ $('#weixinCreate').submit(function() {
             <div class="col-sm-5">
               <div class="input-group">
                 <span class="input-group-addon">*</span>
-                <input type="text" class="form-control" name="appId" id="appId" aria-describedby="appIdStatus" placeholder="微信官方appid,可后续填写">
+                <input type="text" class="form-control" value="$!{wxaccount.appId}" name="appId" id="appId" aria-describedby="appIdStatus" placeholder="微信官方appid,可后续填写">
               </div>
               <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
               <span id="appIdStatus" class="sr-only">(success)</span>
@@ -74,7 +74,7 @@ $('#weixinCreate').submit(function() {
             <div class="col-sm-5">
               <div class="input-group">
                 <span class="input-group-addon">*</span>
-                <input type="text" class="form-control" name="appSecret" id="appSecret" aria-describedby="appSecretStatus" placeholder="微信官方AppSecret,可后续填写">
+                <input type="text" class="form-control"  value="$!{wxaccount.appSecret}" name="appSecret" id="appSecret" aria-describedby="appSecretStatus" placeholder="微信官方AppSecret,可后续填写">
               </div>
               <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
               <span id="appSecretStatus" class="sr-only">(success)</span>
@@ -86,10 +86,10 @@ $('#weixinCreate').submit(function() {
               <div class="input-group">
                 <span class="input-group-addon">*</span>
                 <select id="weixinType" name ="weixinType" class="form-control">
-					<option value="1" selected ="selected">服务号</option>
-                  <option value="2" >订阅号</option>
-				  <option value="3">认证服务号</option>
-				  <option value="4">认证订阅号</option>
+				  <option value="1" #if($!{wxaccount.wexinType}==1) selected ="selected" #end >服务号</option>
+                  <option value="2" #if($!{wxaccount.wexinType}==2) selected ="selected" #end >订阅号</option>
+				  <option value="3" #if($!{wxaccount.wexinType}==3) selected ="selected" #end >认证服务号</option>
+				  <option value="4" #if($!{wxaccount.wexinType}==4) selected ="selected" #end >认证订阅号</option>
                   
                   
                  

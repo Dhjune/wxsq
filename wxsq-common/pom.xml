@@ -19,8 +19,10 @@
   <dependencies>
   
   	<dependency>
-    		<groupId>com.tx.weixin</groupId>
-    		<artifactId>aes-jre</artifactId>   		
+  	
+   		<groupId>com.tx.weixin</groupId>
+   		<artifactId>aes-jre</artifactId> 
+   	
   		</dependency>
   		
   		

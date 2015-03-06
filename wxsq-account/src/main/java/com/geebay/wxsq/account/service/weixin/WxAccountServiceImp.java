@@ -51,6 +51,14 @@ public class WxAccountServiceImp implements WxAccountService{
 		return true;
 				
 	}
+
+
+	public WxAccount findOneByWxsqUserId(String wxsqUserId) {
+		
+		WxAccount wxAccount =  wxAccountDaoImp.findOneByWxsqUserId(wxsqUserId);
+		
+		return wxAccount;
+	}
 	
 	
 	

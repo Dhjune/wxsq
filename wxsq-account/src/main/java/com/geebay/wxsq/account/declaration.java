@@ -11,5 +11,6 @@ package com.geebay.wxsq.account;
  *
  */
 public class declaration {
+	
 
 }

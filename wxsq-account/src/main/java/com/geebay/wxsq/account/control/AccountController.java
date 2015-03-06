@@ -17,8 +17,7 @@ public class AccountController {
 		
 		String  wxsqUserId =  request.getParameter("wxsqUserId");
 		WxsqUser wxsqUser =  (WxsqUser) session.getAttribute("wxsqUser");
-		System.out.println(wxsqUser);
-		System.out.println(wxsqUserId);
+		
 		if(wxsqUser!=null && wxsqUser.getId().equals(wxsqUserId)){
 			
 			return "account/index";	

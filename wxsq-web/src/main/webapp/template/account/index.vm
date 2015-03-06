@@ -23,13 +23,13 @@
                   　
                  　　　　var   $this = $(this),
                  　　　     　_clickTab = $this.attr('link'); 
-				 /*
-		  if($a!=null){
-		  	$a.removeClass("isactive");
-		  }
-		   $this.addClass("isactive");
-		   $a = $this;
-		   */
+				 
+		//  if($a!=null){
+		//  	$a.removeClass("isactive");
+		//  }
+		//   $this.addClass("isactive");
+		//   $a = $this;
+		   
                  　　　　$.get(_clickTab,function(data,status){
 			
                  　　　　　　$("#container_iframe").html(data); 
@@ -39,6 +39,15 @@
 	
 	
 	*/
+	
+	$(function (){
+		
+		$.get("/account/weixin/list",function(data,status){
+			
+                 　　　　　　$("#container_iframe").html(data); 
+                 　　　　});
+	
+	});
     </script>
   
 	
@@ -65,10 +74,13 @@
 	
 				
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-			
-		
-		
-		
+			<!--
+    		<div class="container marketing">
+    			<div class="pull-right" style="width:160p; position: fixed;right: 80px;top: 80px;" id="alert_view">
+    			
+    			</div>
+            </div>
+		-->
 		<div id="container_iframe">
               <div class="row placeholders">
                 <div class="col-xs-6 col-sm-3 placeholder">

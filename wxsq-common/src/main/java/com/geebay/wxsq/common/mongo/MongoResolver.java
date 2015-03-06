@@ -21,6 +21,15 @@ public class MongoResolver {
 	@Autowired
 	private MongoOperations operations;
 	
+	
+	public <T> T findOne(String id,Class clazz){
+		
+		Query query = new Query();
+		query.addCriteria(Criteria.where("_id").is(id));
+		return  (T) operations.findOne(query, clazz);
+	}
+	
+	
 	public  <T>  List<T>  list(List<Expression> list , T target,int pageIndex,int pageSize,String url) throws NoSuchFieldException, SecurityException{
 		Query query = new Query();
 		List<T> result = null;

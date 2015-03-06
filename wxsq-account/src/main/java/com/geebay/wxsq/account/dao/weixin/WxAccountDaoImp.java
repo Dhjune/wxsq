@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.CriteriaDefinition;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
@@ -37,5 +39,13 @@ public class WxAccountDaoImp implements WxAccountDao{
 		
 		
 		return null;
+	}
+
+	public WxAccount findOneByWxsqUserId(String wxsqUserId) {
+		// TODO Auto-generated method stub
+		Query query  = new Query();
+		query.addCriteria(Criteria.where("wxsqUserId").is(wxsqUserId));		
+		return  operations.findOne(query, WxAccount.class);
+		
 	}
 }

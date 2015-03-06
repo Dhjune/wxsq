@@ -2,12 +2,14 @@ package com.geebay.wxsq.account.control.weixin;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.geebay.wxsq.account.inteceptor.Permission;
 import com.geebay.wxsq.account.service.weixin.WxAccountServiceImp;
@@ -25,6 +28,7 @@ import com.geebay.wxsq.common.mongo.MongoResolver;
 import com.geebay.wxsq.common.mongo.PageNav;
 import com.geebay.wxsq.model.Constants;
 import com.geebay.wxsq.model.account.base.WxAccount;
+import com.geebay.wxsq.model.account.base.WxsqUser;
 
 @Controller
 @RequestMapping("/account")
@@ -44,7 +48,7 @@ public class WxAccountController {
 		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 		WxAccount wxaccount =  new  WxAccount();			
 		int pageIndex = 1;						
-		String url = "list%s";
+		String url = "/account/weixin/list%s";
 		Expression[]  expressions = null;
 		List<Expression> list = null;
 		if(expressions  != null){
@@ -59,8 +63,9 @@ public class WxAccountController {
 			e.printStackTrace();
 		}
 		
-		model.addAttribute("context", context);
 		
+		
+		model.addAttribute("context", context);
 		return "account/weixin/list";	
 	}
 	
@@ -86,7 +91,7 @@ public class WxAccountController {
 			pageIndex = 1;	
 			
 		}		
-		String url = "list%s";
+		String url = "/account/weixin/list%s";
 		
 		List<Expression> list =  Arrays.asList(expressions);
 		PageNav<WxAccount> context =null;
@@ -118,16 +123,46 @@ public class WxAccountController {
 	@RequestMapping(value="weixin/create",method=RequestMethod.POST)
 	@FormToken(RemoveToken=true)
 	@Permission()
-	public String wxAccountCreate_post(HttpServletRequest request,Model model,com.geebay.wxsq.model.account.base.WxAccount wxaccount){
+	public String wxAccountCreate_post(HttpServletRequest request,HttpSession session,Model model,com.geebay.wxsq.model.account.base.WxAccount wxaccount){
 		wxaccount.setCreateTime(new Date());
-		boolean  success = wxAccountServiceImp.save(wxaccount);
-		if(success){
-			return  "redirect:/account/weixin/list";
+		WxsqUser user =  (WxsqUser) session.getAttribute("wxsqUser");
+		if(user!=null){
+			wxaccount.setWxsqUserId(user.getId());
+			boolean  success = wxAccountServiceImp.save(wxaccount);
+			if(success){
+				return  "redirect:/account/weixin/list";
+			}else{
+				model.addAttribute("wxaccount", wxaccount);	
+				return "account/weixin/create";
+			}
 		}else{
-			model.addAttribute("wxaccount", wxaccount);	
-			return "account/weixin/create";
+			return  "redirect:/list";
 		}
 		
+		
+	}
+	
+	@RequestMapping(value="weixin/openuse")
+	@ResponseBody
+	public Map openUse(HttpServletRequest request){
+		String  wxAccountId  =   request.getParameter("wxAccountId");
+		WxAccount wxAccount = null;
+		Map map =  new HashMap();
+		if(wxAccountId !=null && !wxAccountId.equals("")){
+			
+			wxAccount =  mongoResolver.findOne(wxAccountId, WxAccount.class);
+			if(wxAccount!= null){
+				map.put("status", 1);
+				map.put("success","可以对当前微信公众号："+wxAccount.getWeixinName()+"进行设置");
+				map.put("wxAccount", wxAccount);
+			}
+			
+		}else{
+			map.put("status", 0);
+			map.put("error", "该账号无法启用，或发生未知错误");
+		}
+	
+		return map;
 	}
 	
 	

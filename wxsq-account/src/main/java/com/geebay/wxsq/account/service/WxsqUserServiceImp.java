@@ -48,11 +48,12 @@ public class WxsqUserServiceImp implements WxsqUserService{
 	public Map logout(Map map,HttpSession session) throws Exception{
 		Map rMap = new HashMap();		
 		WxsqUser user =  (WxsqUser) session.getAttribute("wxsqUser");
-		System.out.println(session.getAttribute("wxsqUser"));
+	
 		if(user!=null){
-			System.out.println("agalsgjl");
+			
 			if(map.get("wxsqUserId").toString().equals(user.getId())){
 				session.removeAttribute("wxsqUser");
+				session.removeAttribute("wxAccount");
 				rMap.put("message", "登出成功，如要进行操作，请重新登录");
 				rMap.put("success", true);
 			}else{

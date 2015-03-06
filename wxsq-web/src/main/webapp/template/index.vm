@@ -8,11 +8,11 @@
     <meta name="author" content="">
 		
     <title>Carousel Template for Bootstrap</title>
-    <script src="/wxsq/static/jquery/jquery-1.10.1.min.js"></script>
-    <script src="/wxsq/static/jquery/jquery.json-2.4.js"></script>
-	<script src="/wxsq/static/js/account_use.js"></script>
-    <script src="/wxsq/static/bootstrap/js/bootstrap.min.js"></script>
-    <link href="/wxsq/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/jquery/jquery-1.10.1.min.js"></script>
+    <script src="/static/jquery/jquery.json-2.4.js"></script>
+	<script src="/static/js/account_use.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		
   <style >
 	/* GLOBAL STYLES
@@ -189,16 +189,16 @@ body {
               </ul>
 			 
               <ul class="nav navbar-nav navbar-right" id="admin_view">
-    				#if($!{wxsqUser.userName})
-					<li><a href="/wxsq/account/index?wxsqUserId=$!{wxsqUser.id}"> 				
+    				#if($!{wxsqUser})
+					<li><a href="/account/index?wxsqUserId=$!{wxsqUser.id}"> 				
 					<span class="glyphicon glyphicon-user" aria-hidden="true">$!{wxsqUser.userName}</span>			
-				   </a>
+					</a>
 					</li>
 					<li><a href='#' onclick="admin_logout('$!{wxsqUser.id}')">退出</a>
 					</li>
 					#else
 					<li><a href="#" data-toggle="modal" data-target="#AdminModal">登录</a></li>
-					<li><a href="/wxsq/user/register" >注册</a></li>
+					<li><a href="/user/register" >注册</a></li>
 					#end
     			   
     			   
@@ -380,10 +380,7 @@ body {
       </div>
 
       <hr class="featurette-divider">
-
       <!-- /END THE FEATURETTES -->
-
-
       <!-- FOOTER -->
       <footer>
         <p class="pull-right"><a href="http://v3.bootcss.com/examples/carousel/#">Back to top</a></p>

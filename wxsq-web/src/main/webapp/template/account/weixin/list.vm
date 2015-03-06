@@ -16,6 +16,53 @@ $('#weixinCreate').submit(function() {
     });
     return false;
 });
+
+#if($!{wxAccount} && $!{wxAccount.id} !="")
+	var  defwx = "$!{wxAccount.id}";
+#else
+	var  defwx = "";
+#end 
+
+
+
+function chWx(target){
+		
+	var $this = $(target),_clickTab = $this.attr('link'); 
+	$.get(_clickTab,function (data ,status){
+		if(data!=null){
+			if(data.status>0){
+				 $this.removeClass("btn-default");
+				 $this.addClass("btn-success");
+				 
+				 if( defwx == $this.attr("id")){
+				 	
+				 }else{
+				 	
+				 	$("#useweixin").html("当前微信:"+data.wxAccount.weixinName);
+				 	$this.html("正在使用");
+				    var temp = $("#"+defwx);
+				 	temp.removeClass("btn-success");
+				 	temp.addClass("btn-default");
+					temp.html("开启使用");				
+					defwx =  $this.attr("id");		
+				 }
+				 
+				 
+				
+				 alert(data.success);
+ 			}else{
+ 					
+					alert(data.error);
+			}
+		
+		}else{
+		
+			alert();
+		}
+	});
+
+}
+
 </SCRIPT>
 
 <div class="panel panel-default">
@@ -54,6 +101,13 @@ $('#weixinCreate').submit(function() {
             			<td>$!{item.id}</td>
             			<td>$!{item.wxId}</td>
             			<td>$!{item.createTime}</td>
+                        <td>#if($!{wxAccount.id}==$!{item.id})
+								<a id="$!{item.id}" class="btn btn-success btn-sm" href="#" onclick="javascript:chWx(this)" link="/account/weixin/openuse?wxAccountId=$!{item.id}" role="button">正在使用</a>
+								
+							#else	
+								<a id="$!{item.id}" class="btn btn-default btn-sm" href="#" onclick="javascript:chWx(this)" link="/account/weixin/openuse?wxAccountId=$!{item.id}" role="button"> 开启使用</a>
+							#end
+						</td>
                      </tr>
             	#end
              
