@@ -75,7 +75,7 @@ public class WxsqUserController {
 			
 			WxsqUser user =  (WxsqUser)rmap.get("wxsqUser");
 			WxAccount wxAccount = wxAccountServiceImp.findOneByWxsqUserId(user.getId());
-			System.out.println(wxAccount);
+			
 			session.setAttribute("wxsqUser", user);
 			session.setAttribute("wxAccount", wxAccount);
 		

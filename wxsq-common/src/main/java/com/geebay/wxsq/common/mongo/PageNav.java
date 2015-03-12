@@ -18,6 +18,7 @@ public class PageNav<T> {
 	private int prev;
 	private String prevUrl;
 	private List<Map> showitems = new ArrayList<Map>();
+	private String view="";
 	
 	public void initPage(){
 		
@@ -193,5 +194,15 @@ public class PageNav<T> {
 	public void setShowitems(List showitems) {
 		this.showitems = showitems;
 	}
+
+	public String getView() {
+		return view;
+	}
+
+	public void setView(String view) {
+		this.view = view;
+	}
+
+	
 	
 }

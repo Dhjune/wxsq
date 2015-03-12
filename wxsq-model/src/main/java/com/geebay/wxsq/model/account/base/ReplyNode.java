@@ -27,7 +27,7 @@ public class ReplyNode {
 	
 	private String key;
 	
-	private String  type;  //类型  
+	private String  replyType;  //类型  
 	
 	private String operateId;
 	
@@ -82,13 +82,6 @@ public class ReplyNode {
 		this.name = name;
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
 
 	public String getReplyContent() {
 		return replyContent;
@@ -182,6 +175,14 @@ public class ReplyNode {
 
 	public void setOperateId(String operateId) {
 		this.operateId = operateId;
+	}
+
+	public String getReplyType() {
+		return replyType;
+	}
+
+	public void setReplyType(String replyType) {
+		this.replyType = replyType;
 	}
 	
 }

@@ -9,7 +9,7 @@ function  Ws(){
 	}
 }
 
-var $Ws =  new Ws();
+var ws =  new Ws();
 var AjaxArr =  new Array();
 
 
@@ -26,11 +26,15 @@ Ws.prototype.ajax = function (url,type,data,content_type){
 	
 }	
 	
-Ws.prototype.get = function(target){
+Ws.prototype.get = function(target,_blank){
 	
 	var $this = $(target),_clickTab = $this.attr('link'); 
 	$.get(_clickTab,function (data ,status){
-		$("#container_iframe").html(data); 
+		if(_blank!=""){
+			$(_blank).html(data); 
+		}else{
+			$("#container_iframe").html(data); 
+		}
 	});
 }
 
@@ -42,7 +46,24 @@ Ws.prototype.post = function(target){
 	});
 }
 
-Ws.prototype.navpost = function(target){
+Ws.prototype.postForm =  function (target,_blank){
+	
+	var  form = $(target);
+	
+	 	jQuery.ajax({
+		    url: form.attr("action"),
+		    data:form.serialize(),
+		    type:"POST",  
+		    success:function(data)
+		    {
+		        $(_blank).html(data); 
+		    }
+		    });
+		    return false;
+	
+}
+
+Ws.prototype.navpost = function(target,_blank){
 	
 	var $this = $(target),_clickTab = $this.attr('link'); 
 	console.log($.toJSON(AjaxArr));
@@ -53,8 +74,11 @@ Ws.prototype.navpost = function(target){
          
         contentType : 'application/json',  
         success : function(data, status, xhr) {  
-        	
-        	$("#container_iframe").html(data); 
+        	if(_blank!=""){
+        		$("#"+_blank).html(data); 
+        	}else{
+        		$("#container_iframe").html(data); 
+        	}
         }
 	});
 }

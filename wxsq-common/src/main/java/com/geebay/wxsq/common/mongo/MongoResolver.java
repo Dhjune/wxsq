@@ -52,8 +52,11 @@ public class MongoResolver {
 		
 		Query query = new Query();
 		if(list!=null &&list.size()>0){
-			for(Iterator<Expression> i = list.iterator(); i.hasNext();)    { 
-				 match(i.next(),query,target);
+			for(Iterator<Expression> i = list.iterator(); i.hasNext();)    {
+				
+					 match(i.next(),query,target);
+			
+				
 		    } 
 		}
 		
@@ -75,64 +78,71 @@ public class MongoResolver {
 	@SuppressWarnings("static-access")
 	public <T> void  match (Expression e,Query query ,T target) throws NoSuchFieldException, SecurityException{		
 		Criteria criteria = null;
-		if(e.initial_op!=null){
+		if(e!=null){
+			if(e.initial_op!=null){
+				
+				
+				switch (e.initial_op) {
+				
+			        case GT:
+			        	criteria = new Criteria(e.name);
+			        	criteria.gt(getField(target.getClass(), e.name, e.initial_v));          
+			            break;
+			        case LT:
+			        	criteria = new Criteria(e.name);
+			        	criteria.lt(getField(target.getClass(), e.name, e.initial_v));   
+			            break;
+			        case IS:
+			        	criteria = new Criteria(e.name);
+			        	criteria.is(getField(target.getClass(), e.name, e.initial_v));   
+			            break;
+			        	
+			        case SORT:
+			        	
+			            Direction direction = true?Direction.ASC:Direction.DESC;
+			   		    query.with(new Sort(direction,e.name));
+			            break;
+			        case LIMIT:
+			        	query.limit(15);
+			            break;
+			        default:
+			          
+			            break;
+		        }
+			}
 			
+			if(e.trailing_op!=null){
 			
-			switch (e.initial_op) {
+				switch (e.trailing_op) {
+				    case GT:
+				    	
+			        	criteria.gt(getField(target.getClass(), e.name, e.trailing_v));
+				        break;
+				        
+				    case LT:
+				    			    	
+			        	criteria.lt(getField(target.getClass(), e.name, e.trailing_v));   
+				        break;
+				        
+				    case SORT:
+				    	
+				    	Direction direction=true?Direction.ASC:Direction.DESC;
+			   		    query.with(new Sort(direction,e.name));	    	
+			            break;
+			            
+			        case LIMIT:
+			        	query.limit(15);
+			            break;
+				    default:
+				      
+				        break;
+			    }
+			}
 			
-		        case GT:
-		        	criteria = new Criteria(e.name);
-		        	criteria.gt(getField(target.getClass(), e.name, e.initial_v));          
-		            break;
-		        case LT:
-		        	criteria = new Criteria(e.name);
-		        	criteria.lt(getField(target.getClass(), e.name, e.initial_v));   
-		            break;
-		        case SORT:
-		        	
-		            Direction direction = true?Direction.ASC:Direction.DESC;
-		   		    query.with(new Sort(direction,e.name));
-		            break;
-		        case LIMIT:
-		        	query.limit(15);
-		            break;
-		        default:
-		          
-		            break;
-	        }
-		}
+			if(criteria!=null){
 		
-		if(e.trailing_op!=null){
-		
-			switch (e.trailing_op) {
-			    case GT:
-			    	
-		        	criteria.gt(getField(target.getClass(), e.name, e.trailing_v));
-			        break;
-			        
-			    case LT:
-			    			    	
-		        	criteria.lt(getField(target.getClass(), e.name, e.trailing_v));   
-			        break;
-			        
-			    case SORT:
-			    	
-			    	Direction direction=true?Direction.ASC:Direction.DESC;
-		   		    query.with(new Sort(direction,e.name));	    	
-		            break;
-		            
-		        case LIMIT:
-		        	query.limit(15);
-		            break;
-			    default:
-			      
-			        break;
-		    }
-		}
-		
-		if(criteria!=null){
-	
-			query.addCriteria(criteria);
+				query.addCriteria(criteria);
+			}
 		}
 		
 	}

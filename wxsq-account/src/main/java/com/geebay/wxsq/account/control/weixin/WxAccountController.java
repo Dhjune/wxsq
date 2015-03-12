@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,13 @@ import com.geebay.wxsq.model.Constants;
 import com.geebay.wxsq.model.account.base.WxAccount;
 import com.geebay.wxsq.model.account.base.WxsqUser;
 
+/** 
+* @ClassName: WxAccountController 
+* @Description: 当前社区用户对于微信公众号的操作，公众号实例创建、修改、删除、查看的基本操作.
+* @author june
+* @date 2015年3月9日 上午11:26:23 
+*  
+*/
 @Controller
 @RequestMapping("/account")
 public class WxAccountController {
@@ -42,6 +50,15 @@ public class WxAccountController {
 	@Autowired
 	private  MongoResolver mongoResolver;
 	
+	/** 
+	* @Title: getWxAccountListByGet 
+	* @Description: 
+	* @param @param request
+	* @param @param model
+	* @param @return   
+	* @return String   
+	* @throws 
+	*/
 	@RequestMapping(value={"weixin/list"},method=RequestMethod.GET)
 	public String getWxAccountListByGet(HttpServletRequest request,Model model){
 		String path = request.getContextPath();
@@ -62,13 +79,24 @@ public class WxAccountController {
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
+				
 		model.addAttribute("context", context);
 		return "account/weixin/list";	
 	}
 	
+	
+	
+	
+	
+	/** 
+	* @Title: getWxAccountListByPost 
+	* @Description: TODO
+	* @param expressions
+	* @param request
+	* @param model
+	* @return String
+	* @throws 
+	*/
 	@RequestMapping(value={"weixin/list"},method=RequestMethod.POST)
 	public String getWxAccountListByPost(@RequestBody Expression[]  expressions,HttpServletRequest request,Model model){
 		
@@ -130,6 +158,7 @@ public class WxAccountController {
 			wxaccount.setWxsqUserId(user.getId());
 			boolean  success = wxAccountServiceImp.save(wxaccount);
 			if(success){
+				session.setAttribute("wxAccount", wxaccount);
 				return  "redirect:/account/weixin/list";
 			}else{
 				model.addAttribute("wxaccount", wxaccount);	
@@ -144,7 +173,7 @@ public class WxAccountController {
 	
 	@RequestMapping(value="weixin/openuse")
 	@ResponseBody
-	public Map openUse(HttpServletRequest request){
+	public Map openUse(HttpServletRequest request,HttpSession session){
 		String  wxAccountId  =   request.getParameter("wxAccountId");
 		WxAccount wxAccount = null;
 		Map map =  new HashMap();
@@ -155,6 +184,8 @@ public class WxAccountController {
 				map.put("status", 1);
 				map.put("success","可以对当前微信公众号："+wxAccount.getWeixinName()+"进行设置");
 				map.put("wxAccount", wxAccount);
+				session.setAttribute("wxAccount", wxAccount);
+				
 			}
 			
 		}else{
@@ -164,6 +195,10 @@ public class WxAccountController {
 	
 		return map;
 	}
+	
+	
+	
+	
 	
 	
 }

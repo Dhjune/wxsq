@@ -1,0 +1,90 @@
+
+	
+  
+  
+
+<SCRIPT >
+
+var  current = "text_message";
+
+function check_Message(target,_blank){
+
+	ws.get(target,_blank);
+	
+	$("#"+current).removeClass("active");
+	$(target.parent).addClass("active");
+	current = $(target.parentNode).attr("id");
+}
+
+</SCRIPT>
+
+<div class="panel panel-default">
+<div class="panel-heading">消息库</div>
+	
+  <div class="panel-body">
+	
+	
+		
+		<ul class="nav nav-tabs">
+          <li id="text_message" role="presentation" class="null active"><a href="#" onclick="javascript:check_Message(this,'#message_view')"  link="./weixin/message/text/list">文字消息</a></li>
+          <li id="news_message" role="presentation" class="null "><a href="#" onclick="javascript:check_Message(this,'#message_view')"  link="./weixin/message/news/list">图文消息</a></li>
+          <li id="nsg_message"role="presentation" class="null "><a href="#" onclick="javascript:check_Message(this,'#message_view')"  link="./weixin/message/nsg/list">图文消息包</a></li>
+        </ul>
+		
+		<div id="message_view">
+        
+            	<div class="panel panel-default">
+                <div class="panel-heading">文本消息列表</div>
+                	
+                  <div class="panel-body">
+                <table class="table table-bordered">
+                	 <tr>
+                		<td>ID</td>
+                		<td>消息名称</td>
+                		<td>内容</td>
+                		<td>消息类型</td>
+                		<td>创建时间</td>
+                		<td>操作</td>
+                        
+                     </tr>
+                        	#foreach($item in $!{context.list})
+                        		 <tr>
+                        			<td>$!{item.id}</td>
+                        			<td>$!{item.name}</td>
+                					<td>$!{item.content}</td>
+                					<td>$!{item.type}</td>				
+                        			<td>
+                						
+                						$!date.format('yyyy-MM-dd HH:mm:ss ',$!{item.createTime})	
+                						
+                					</td>
+                					
+                					<td>
+                						
+                						<div class="btn-group" role="group" aria-label="...">
+                                          <a type="button" onclick="javascript:ws.get(this,'')" link="./weixin/message/text/update?pageIndex=$!{context.pageIndex}" class="btn btn-default">修改</a>
+                						  &nbsp;&nbsp;
+                                          <a type="button" onclick="javascript:ws.get(this,'')" link="./weixin/message/text/delete?pageIndex=$!{context.pageIndex}" class="btn btn-default">删除 </a>                             
+                                        </div>
+                						
+                					</td>
+                                    
+                                 </tr>
+                        	#end
+                    </table>
+                		<div id="pageNav">
+                				<div class=" pull-left pagination">
+                					<a type="button" onclick="javascript:ws.get(this,'#message_view')" link="./weixin/message/text/create" class="btn btn-default">新建消息</a>
+                				</div>
+                				
+                				#parse("/layout/pagenav.vm")
+                           </div>
+                		   
+                </div>
+                </div>
+                		   
+			   
+			   
+ 
+</div>
+

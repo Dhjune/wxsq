@@ -203,7 +203,7 @@ public class EventProcess {
 		String content = (String)context.getContext().get(BaseServicePlugin.CTX_KEY_USER_INPUT);
 		String openId = (String)context.getOpenId();
 		ReplyNode event =  eventNodeDaoImp.find(wxAccountId, content);
-		String type = event.getType();
+		String type = event.getReplyType();
 		String operateId = "";
 		if(type.equals("news")){
 			
