@@ -52,7 +52,7 @@ public class MongoResolver {
 		
 		Query query = new Query();
 		if(list!=null &&list.size()>0){
-			for(Iterator<Expression> i = list.iterator(); i.hasNext();)    {
+			for(Iterator<Expression> i = list.iterator(); i.hasNext();){
 				
 					 match(i.next(),query,target);
 			
